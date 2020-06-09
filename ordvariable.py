@@ -13,6 +13,7 @@ DQO = [int(450), int(400), int(350), int(300.0), int(250.0), int(200.0), int(150
 # matplotlib.pyplot.title("Datos Experimentales (orden cero, gráfica según ec.(II-2a))")
 # matplotlib.pyplot.show()
 
+
 X = t
 Y = []
 for x in DQO:
