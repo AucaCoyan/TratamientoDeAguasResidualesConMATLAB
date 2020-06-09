@@ -41,6 +41,7 @@ for x in DQO:
 X1 = numpy.divide(t, A)
 print(X1)
 
+# https://numpy.org/doc/stable/reference/routines.math.html
 
 Y = []
 for x in DQO:
