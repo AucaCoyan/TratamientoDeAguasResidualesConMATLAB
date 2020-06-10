@@ -1,12 +1,12 @@
 #  Chapter 2
 import math
 import matplotlib.pyplot
-import numpy
+import numpy as np
 
 # Time and DQO
 So = int(500)
-t = [2.6, 5.2, 7.85, 10.51, 13.19, 15.91, 18.7, 21.61, 24.8, 31.16]
-DQO = [int(450), int(400), int(350), int(300.0), int(250.0), int(200.0), int(150.0), int(100.0), int(50.0), int(1.0)]
+t = np.array([2.6, 5.2, 7.85, 10.51, 13.19, 15.91, 18.7, 21.61, 24.8, 31.16])
+DQO = np.array([450, 400, 350, 300, 250.0, 200.0, 150, 100, 50, 1])
 
 # First Plot x, y = (t, DQO)
 """
@@ -18,9 +18,9 @@ matplotlib.pyplot.ylabel("DQO (mg/l)")
 matplotlib.pyplot.title("Datos Experimentales (orden cero, gráfica según ec.(II-2a))")
 matplotlib.pyplot.scatter(X, Y)
 matplotlib.pyplot.show()
-"""
+# """
 
-# Second Plot x, y = [t, ln(So/DQO)]
+# Second Plot x, y = [t, ln(So/DQO)]   ->  it's done without numpy
 """
 X = t
 Y = []
@@ -33,26 +33,22 @@ matplotlib.pyplot.show()
 
 # Third Plot x, y = [t, ln(So/DQO)]
 # """
-A = []
-# A is a vector equal to (So - DQO)
-for x in DQO:
-    A.append(So - x)
+X1 = np.divide(t, (So - DQO))
+Y1 = np.log(So / DQO) / (So - DQO)
 
-X1 = numpy.divide(t, A)
-print(X1)
-
-# https://numpy.org/doc/stable/reference/routines.math.html
-
-Y = []
-for x in DQO:
-    Y.append(math.log(So / x))
-Y1 = []
-
-
-
-
-print(Y1)
-
-# matplotlib.pyplot.scatter(X1, Y1)
-# matplotlib.pyplot.show()
 # """
+
+A = np.polyfit(X1, Y1, 1)
+k1 = A[0] # pendiente de A
+k2e = A[1]
+k2 = -A[1]
+recta = X1 * k1  + k2e
+# plot the line
+matplotlib.pyplot.plot(X1, recta)
+
+# insert custom point
+matplotlib.pyplot.text(0.06, 0.0077, "o experimentales")
+
+# Plot
+matplotlib.pyplot.scatter(X1, Y1)
+matplotlib.pyplot.show()
